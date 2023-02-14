@@ -36,10 +36,10 @@ init();
 
 const switchplayer = function(){
   document.getElementById(`current--${activeplayer}`).textContent = 0;
-    currentscore=0;
-    activeplayer = activeplayer===0 ? 1:0;
-    player0El.classList.toggle('player--active')
-    player1El.classList.toggle('player--active')
+  currentscore=0;
+  activeplayer = activeplayer===0 ? 1:0;
+  player0El.classList.toggle('player--active')
+  player1El.classList.toggle('player--active')
 }
 
 
@@ -53,14 +53,58 @@ btnroll.addEventListener('click', function () {
     //display dice
     diceEl.classList.remove('hidden');
     diceEl.src = `dice-${dice}.png`;
-    if (dice !== 1) {
+
+    if (dice == 6) {
       currentscore += dice;
       document.getElementById(`current--${activeplayer}`).textContent = currentscore
       // current0El.textContent = currentscore;
+      if(playing){
+
+  
+        // 1.add current score to activeplayer score
+        score[activeplayer]+= currentscore;
+        document.getElementById(`score--${activeplayer}`).textContent=score[activeplayer];
+        // 2.check if the player score is greater than 100
+        if(score[activeplayer]>=100){
+          //finish game
+          playing=false;
+          diceEl.classList.add('hidden')
+          document.querySelector(`.player--${activeplayer}`).classList.add('player--winner')
+          document.querySelector(`.player--${activeplayer}`).classList.remove('player--active')
+      
+        }
+        // else{
+        //   switchplayer();
+        // }
+      }
   
     }
     else{
-      switchplayer();
+
+      currentscore += dice;
+      document.getElementById(`current--${activeplayer}`).textContent = currentscore
+      // current0El.textContent = currentscore;
+      if(playing){
+
+  
+        // 1.add current score to activeplayer score
+        score[activeplayer]+= currentscore;
+        document.getElementById(`score--${activeplayer}`).textContent=score[activeplayer];
+        // 2.check if the player score is greater than 100
+        if(score[activeplayer]>=100){
+          //finish game
+          playing=false;
+          diceEl.classList.add('hidden')
+          document.querySelector(`.player--${activeplayer}`).classList.add('player--winner')
+          document.querySelector(`.player--${activeplayer}`).classList.remove('player--active')
+      
+        }
+        else{
+          switchplayer();
+        }
+      }
+      
+      // switchplayer();
       
   
     }
@@ -70,26 +114,26 @@ btnroll.addEventListener('click', function () {
 
 });
 
-btnhold.addEventListener('click',function(){
+// btnhold.addEventListener('click',function(){
 
-  if(playing){
+//   if(playing){
 
   
-  // 1.add current score to activeplayer score
-  score[activeplayer]+= currentscore;
-  document.getElementById(`score--${activeplayer}`).textContent=score[activeplayer];
-  // 2.check if the player score is greater than 100
-  if(score[activeplayer]>=100){
-    //finish game
-    playing=false;
-    diceEl.classList.add('hidden')
-    document.querySelector(`.player--${activeplayer}`).classList.add('player--winner')
-    document.querySelector(`.player--${activeplayer}`).classList.remove('player--active')
+//   // 1.add current score to activeplayer score
+//   score[activeplayer]+= currentscore;
+//   document.getElementById(`score--${activeplayer}`).textContent=score[activeplayer];
+//   // 2.check if the player score is greater than 100
+//   if(score[activeplayer]>=100){
+//     //finish game
+//     playing=false;
+//     diceEl.classList.add('hidden')
+//     document.querySelector(`.player--${activeplayer}`).classList.add('player--winner')
+//     document.querySelector(`.player--${activeplayer}`).classList.remove('player--active')
 
-  }else{
-    switchplayer();
-  }
-}
+//   }else{
+//     switchplayer();
+//   }
+// }
 
-})
+// })
 btnnew.addEventListener('click',init);
