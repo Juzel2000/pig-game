@@ -54,6 +54,13 @@ btnroll.addEventListener('click', function () {
     diceEl.classList.remove('hidden');
     diceEl.src = `dice-${dice}.png`;
 
+    function finishgame(){
+      playing=false;
+      diceEl.classList.add('hidden')
+      document.querySelector(`.player--${activeplayer}`).classList.add('player--winner')
+      document.querySelector(`.player--${activeplayer}`).classList.remove('player--active')
+    }
+
     if (dice == 6) {
       currentscore += dice;
       document.getElementById(`current--${activeplayer}`).textContent = currentscore
@@ -66,11 +73,8 @@ btnroll.addEventListener('click', function () {
         document.getElementById(`score--${activeplayer}`).textContent=score[activeplayer];
         // 2.check if the player score is greater than 100
         if(score[activeplayer]>=100){
-          //finish game
-          playing=false;
-          diceEl.classList.add('hidden')
-          document.querySelector(`.player--${activeplayer}`).classList.add('player--winner')
-          document.querySelector(`.player--${activeplayer}`).classList.remove('player--active')
+    
+          finishgame()
       
         }
         // else{
@@ -92,11 +96,8 @@ btnroll.addEventListener('click', function () {
         document.getElementById(`score--${activeplayer}`).textContent=score[activeplayer];
         // 2.check if the player score is greater than 100
         if(score[activeplayer]>=100){
-          //finish game
-          playing=false;
-          diceEl.classList.add('hidden')
-          document.querySelector(`.player--${activeplayer}`).classList.add('player--winner')
-          document.querySelector(`.player--${activeplayer}`).classList.remove('player--active')
+          finishgame()
+          
       
         }
         else{
@@ -109,31 +110,7 @@ btnroll.addEventListener('click', function () {
   
     }
   }
-
-
-
 });
 
-// btnhold.addEventListener('click',function(){
 
-//   if(playing){
-
-  
-//   // 1.add current score to activeplayer score
-//   score[activeplayer]+= currentscore;
-//   document.getElementById(`score--${activeplayer}`).textContent=score[activeplayer];
-//   // 2.check if the player score is greater than 100
-//   if(score[activeplayer]>=100){
-//     //finish game
-//     playing=false;
-//     diceEl.classList.add('hidden')
-//     document.querySelector(`.player--${activeplayer}`).classList.add('player--winner')
-//     document.querySelector(`.player--${activeplayer}`).classList.remove('player--active')
-
-//   }else{
-//     switchplayer();
-//   }
-// }
-
-// })
 btnnew.addEventListener('click',init);
